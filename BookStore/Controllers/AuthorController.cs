@@ -47,5 +47,55 @@ namespace BookStore.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPut("{authorId}")]
+        public async Task<IActionResult> UpdateAuthor(Guid authorId, [FromBody] AddAuthorDTO addAuthor)
+        {
+            try
+            {
+                var res = await _authorServices.UpdateAuthor(authorId, addAuthor);
+                if(res != true)
+                {
+                    return BadRequest("Updation failed");
+                }
+                return Ok("Updated succesfully");
+            }catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("{authorId}")]
+        public async Task<IActionResult> GetAuthorById(Guid authorId)
+        {
+            try
+            {
+                var res = await _authorServices.GetAuthorById(authorId);
+                if (res == null)
+                {
+                    return NotFound("Author Not found");
+                }
+                return Ok(res);
+            }catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{authorId}")]
+        public async Task<IActionResult> DeleteAuthor(Guid authorId)
+        {
+            try
+            {
+                var res = await _authorServices.DeleteAuthor(authorId);
+                if (res != true)
+                {
+                    return BadRequest("Something went wrong");
+                }
+                return Ok("Author deleted succesfully");
+            }catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

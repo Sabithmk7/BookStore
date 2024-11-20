@@ -8,6 +8,10 @@ namespace BookStore.Repository.AuthorRepository
     {
         Task AddAuthor(AddAuthorDTO addAuthor);
         Task<IEnumerable<AuthorWithBooksDTO>> GetAuthors();
+        Task<bool> UpdateAuthor(Guid authorId,AddAuthorDTO author);
+        Task<AuthorWithBooksDTO> GetAuthorById(Guid authorId);
+
+        Task<bool> DeleteAuthor(Guid id);
 
     }
 }
